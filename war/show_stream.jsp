@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List" %>
+<%@ page import="java.util.LinkedList" %>
 <%@ page import="java.util.Date" %>
 <%@ page import="com.google.appengine.api.users.User" %>
 <%@ page import="com.google.appengine.api.users.UserService" %>
@@ -24,6 +25,15 @@
 	</head>
 	
   <body>
+  <div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=441233759331417";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
   	<h1 style="text-align: center;">Connex.us</h1>
   	<div id="nav">
 	<ul style="text-align: center;">
@@ -51,6 +61,9 @@
 			if ( str.id.equals(streamId) ) {
 				str.views++;
 				str.lastViewed = new Date();
+				if(str.stream_view_dates == null)
+					str.stream_view_dates = new LinkedList<Date>();
+				str.stream_view_dates.add(str.lastViewed);
 				OfyService.ofy().save().entity(str).now();
 			}
 //			System.out.println("numpics " + str.numPics);
@@ -75,9 +88,23 @@
    </form>
    <br>
 
- <form style = "text-align:center" action="add_subscriber.jsp?streamId=<%= streamId %>&streamName=<%= streamName %>"
+ <form style = "text-align:left" action="add_subscriber.jsp?streamId=<%= streamId %>&streamName=<%= streamName %>"
  method="post">
 		<input type="submit" value="Subscribe">
    </form>
+<div class="fb-like" data-href="http://dkconnexus.appspot.com/" data-width="450" data-show-faces="true" data-send="true"></div>
+
+<a href="#" 
+style = "text-align:center" 
+  onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href), 
+      'facebook-share-dialog', 
+      'width=626,height=436'); 
+    return false;">
+  Share this stream on Facebook
+</a>
+
+
   </body>
   </html>

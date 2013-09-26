@@ -2,6 +2,7 @@ package dkconnexus;
 
 import com.googlecode.objectify.Objectify;
 import com.googlecode.objectify.ObjectifyFactory;
+//import java.lang.*;
 
 // APT: this solves potential "not registered" failures, e.g., if we bringup app and immediately go to ViewAllStreams.jsp
 // call to data store read via objectify service will fail even if stream class calls the register() method 
@@ -11,6 +12,7 @@ public class OfyService {
     	factory().register(Stream.class);
     	factory().register(Greeting.class);
     	factory().register(ConnexusImage.class);
+    	factory().register(EmailTime.class);
     }
 
     public static Objectify ofy() {

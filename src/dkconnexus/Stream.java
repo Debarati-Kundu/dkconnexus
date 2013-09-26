@@ -10,6 +10,7 @@ import com.googlecode.objectify.ObjectifyService;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;
+import java.util.Queue;
 import com.google.common.base.Joiner;
 import com.googlecode.objectify.ObjectifyFactory;
 
@@ -36,6 +37,8 @@ public class Stream implements Comparable<Stream> {
 	@Index public LinkedList<String> subscribers = null;
 	@Index public LinkedList<String> pictures= null; 
 	@Index public HashSet<String> tags = null;
+	@Index public LinkedList<Date> stream_view_dates = null;
+//	@Index public Queue<Date> stream_view_dates = null;
   
 	// TODO: figure out why this is needed
 	@SuppressWarnings("unused")
@@ -56,15 +59,22 @@ public class Stream implements Comparable<Stream> {
 		this.owner = owner;
 		this.coverImageUrl = coverImageUrl;
 		this.createDate = new Date();
+		this.stream_view_dates = new LinkedList<Date>();
 	}
 
 	@Override
 	public int compareTo(Stream other) {
+		if (views < other.views) {
+			return 1;
+		} else if (views > other.views) {
+			return -1;
+		}
+		/*
 		if (createDate.after(other.createDate)) {
 			return 1;
 		} else if (createDate.before(other.createDate)) {
 			return -1;
-		}
+		}*/
 		return 0;
 	}
 }

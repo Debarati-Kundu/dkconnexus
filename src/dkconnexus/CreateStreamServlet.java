@@ -4,6 +4,8 @@ import java.io.IOException;
 import javax.servlet.http.*;
 import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Date;
 import com.google.appengine.api.users.User;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
@@ -27,7 +29,7 @@ public class CreateStreamServlet extends HttpServlet {
 		
 		s.subscribers = new LinkedList<String>();
 		s.tags = new HashSet<String>();
-		System.out.println("Hello2");
+		
         for (String tag : tags.split("#")) { 
 			tag = tag.replace(" ", ""); 
 	    	s.tags.add(tag);
@@ -37,7 +39,8 @@ public class CreateStreamServlet extends HttpServlet {
 			if(!s.subscribers.contains(sub))
 				s.subscribers.add(sub);
 		} 
-        System.out.println("Hello1");
+        
+        s.stream_view_dates = new LinkedList<Date>();
 		// persist to datastore
 		ofy().save().entity(s).now();
 		resp.sendRedirect("/view_stream.jsp");
