@@ -41,6 +41,9 @@
 		Add subscribers: <input type="text" name="subs">
 		<br>
 		<br> 
+		Add optional message: <input type="text" name="msg">
+		<br>
+		<br> 
 		<input type="submit" value="Create Stream">
 </form>
 

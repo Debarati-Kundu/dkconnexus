@@ -1,6 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List" %>
-<%@ page import="java.util.List" %>
 <%@ page import="java.util.Collections" %>
 <%@ page import="dkconnexus.Stream" %>
 <%@ page import="dkconnexus.OfyService" %>
@@ -25,7 +24,7 @@
 %>
 <!-- <h1> Connex.us</h1> -->
 <link type="text/css" rel="stylesheet" href="/stylesheets/main1.css">
-<h3 style="text-align: center;">Hello, ${fn:escapeXml(user.nickname)}! Thanks for using Connexus </h3>
+<h3 style="text-align: center;">Hello, ! Thanks for using Connexus </h3>
 <p style="position: absolute; top:0px; left:1200px;"><a href="<%= userService.createLogoutURL(request.getRequestURI()) %>">Sign out</a></p>
 
 <div id="nav">
@@ -39,8 +38,8 @@
 	</ul>
 	<br class="clear" />
 </div>
-<h4 style="text-align: left;">Streams I own </h4>
-<table>
+<h4 style="text-align: center;">Streams I own </h4>
+    <table>
       <tr>
     <th color="#FFFFFF">Name</th>
     <th color="#FFFFFF">Last New Picture</th>
@@ -54,22 +53,22 @@
 		for (Stream s : th ) {
 		  %>
 		  <tr>
-		  <td><a href="show_stream.jsp?streamId=<%= s.id %>&streamName=<%= s.name %>"> <%= s.name %></a></td>	
-		  	<td><%= s.lastAdded%></td>
+		  <td><a href="show_stream.jsp?streamId=<%= s.id %>&streamName=<%= s.name %>"> <%= s.name %></a></td>
+		  <td><%= s.lastAdded%></td>
 		  <td><%= s.numPics%></td>
 		  <td>
-		  <form style = "text-align:left" action="delete_stream.jsp?streamId=<%= s.id %>&streamName=<%= s.name %>"
- 				method="post">
-			<input type="submit" value="Delete"> 
-   		  </form>
+		  <% 
+		  System.out.println("Subbbb"); %>
 		 		
 		  </td>
-		  </tr>
+		  <tr>
 <% 
+	//	OfyService.ofy().save().entity(s).now();
  } %>
 		
 </table>
-<h4 style="text-align: left;">Streams I subscribe to </h4>
+
+<h4 style="text-align: center;">Streams I subscribe to </h4>
 <table>
       <tr>
     <th color="#FFFFFF">Name</th>
@@ -78,7 +77,7 @@
     <th color="#FFFFFF">Views</th>
     <th color="#FFFFFF">Unsubscribe</th>
   </tr>
-  <%
+<%
 		List<Stream> th1 = OfyService.ofy().load().type(Stream.class).list();
 		Collections.sort(th1);
 		for (Stream s : th1 ) {
@@ -92,16 +91,27 @@
 		  <td><%= s.numPics%></td>
 		  <td><%= s.views%></td>
 		  <td>
-		  		  <form style = "text-align:left" action="unsubscribe.jsp?streamId=<%= s.id %>&streamName=<%= s.name %>"
+		  <form style = "text-align:left" action="unsubscribe.jsp?streamId=<%= s.id %>&streamName=<%= s.name %>"
  				method="post">
 			<input type="submit" value="Unsubscribe"> 
    		  </form>
+		 		
 		  </td>
-		  </tr>
+		  <tr>
 		  <%
 		  }
  } %>
-</table>
+		
+
+    </table>
+
+<br></br>
+
+<div class="center">
+	<form name="input" action="html_form_action.asp" method="get" align="center">
+		<input type="submit" value="Unsubscribe checked streams">
+	</form>
+</div>
 
 <%
     } else {

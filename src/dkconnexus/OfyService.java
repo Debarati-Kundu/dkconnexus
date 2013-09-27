@@ -13,6 +13,7 @@ public class OfyService {
     	factory().register(Greeting.class);
     	factory().register(ConnexusImage.class);
     	factory().register(EmailTime.class);
+    	factory().register(LastTime.class);
     }
 
     public static Objectify ofy() {

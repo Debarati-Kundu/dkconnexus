@@ -9,11 +9,11 @@ import com.google.common.base.Joiner;
 import com.googlecode.objectify.ObjectifyFactory;
 
 @Entity
-public class EmailTime{
+public class LastTime{
 	@Id 
 	public long Id;
 	static {
-		 ObjectifyService.register(EmailTime.class);
+		 ObjectifyService.register(LastTime.class);
 	}
-	public String EmailFreq;
+	public Date PrevTime;
 }
